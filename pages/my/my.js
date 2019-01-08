@@ -12,7 +12,7 @@ Page({
     takeSession: false,
     requestResult: '',
     authorized: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: swan.canIUse('button.open-type.getUserInfo')
 
   },
 
@@ -23,10 +23,10 @@ Page({
 		const _this = this;
 		// 拼接请求url
 		//console.log(options.actId);
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				if (userinfo.mobile && userinfo.mobile.length > 0) {
 					userinfo.mobile = userinfo.mobile.substr(0, 3) + '****' + userinfo.mobile.substr(7, 4);
 				}
@@ -48,10 +48,10 @@ Page({
 
     // 查看是否授权
     /*
-		wx.getSetting({
+		swan.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
+          swan.getUserInfo({
             success: function (res) {
               //this.userInfo = res.userInfo
               console.log(res.userInfo)
@@ -64,15 +64,15 @@ Page({
               })
             },
             fail: function () {
-              wx.showModal({
+              swan.showModal({
                 title: '警告',
                 content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
                 success: function (res) {
                   if (res.confirm) {
-                    wx.openSetting({
+                    swan.openSetting({
                       success: (res) => {
                         if (res.authSetting["scope.userInfo"]) {////如果用户重新同意了授权登录
-                          wx.getUserInfo({
+                          swan.getUserInfo({
                             success: function (res) {
                               var userInfo = res.userInfo;
                               that.setData({
@@ -84,7 +84,7 @@ Page({
                         }
                       }, 
 											fail: function (res) {
-                        console.log("wx.showModal failed")
+                        console.log("swan.showModal failed")
                       }
                     })
 
@@ -93,14 +93,14 @@ Page({
               })
             },
             complete: function (res) {
-              console.log("wx.getUserInfo complete")
+              console.log("swan.getUserInfo complete")
             }
 
           })
         }
       },
       fail: function () {
-        console.log("wx.getSetting failed")
+        console.log("swan.getSetting failed")
       }
     })
 		*/
@@ -113,10 +113,10 @@ Page({
 	getUserInfo: function (e) {
 		var _this = this;
 		console.log(e);
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo) {
 			app.globalData.userInfo = e.detail.userInfo;
-			wx.setStorage({
+			swan.setStorage({
 				key: "userinfo",
 				data: e.detail.userInfo
 			});
@@ -128,7 +128,7 @@ Page({
 			});
 		} else {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					authorized: true,
 					userInfo: userinfo
@@ -150,22 +150,22 @@ Page({
   },
 
 	gotoFav: function () {
-		wx.navigateTo({
+		swan.navigateTo({
 			url: '/pages/myfavorite/myfavorite'
 		})
 	},
 	gotoActivity: function () {
-		wx.navigateTo({
+		swan.navigateTo({
 			url: '/pages/myactivity/myactivity'
 		})
 	},
 	gotoReserve: function () {
-		wx.navigateTo({
+		swan.navigateTo({
 			url: '/pages/myreservation/myreservation'
 		})
 	},
 	gotoHongbao: function () {
-		wx.navigateTo({
+		swan.navigateTo({
 			url: '/pages/myhongbao/myhongbao'
 		})
 	},
@@ -174,7 +174,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title //"项目详情" //this.project.pName
 		})
 

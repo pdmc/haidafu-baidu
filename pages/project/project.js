@@ -35,10 +35,10 @@ Page({
   onLoad: function(options) {
     const _this = this;
 		
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var uinfo = wx.getStorageSync('userinfo');
+				var uinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userId: uinfo.userId
 				});
@@ -52,7 +52,7 @@ Page({
 		
     // 获取project详细信息
 		const url = app.globalData.main_url + '/projects/getbyid?pId=' + options.pId;
-    wx.request({
+    swan.request({
       url: url,
       data: {},
       header: {
@@ -74,7 +74,7 @@ Page({
 					});
 					const key = 'myfavorites';
 					var pid = res.data.data[0].pId;
-					var favs = wx.getStorageSync(key) || [];
+					var favs = swan.getStorageSync(key) || [];
 					var fi = util.array_find_obj(favs, "pid", pid);
 					if (fi >= 0) {
 						_this.setData({
@@ -85,7 +85,7 @@ Page({
 						const url = app.globalData.main_url + '/favorites/getbycond?pId=' + _this.data.project.pId + '&userId=' + _this.data.userId;
 						// 请求数据
 						//var _res = res;
-						wx.request({
+						swan.request({
 							url: url,
 							data: {},
 							header: {
@@ -94,7 +94,7 @@ Page({
 							success: function (res) {
 								if (res.statusCode == 200 && res.data.data.length > 0) {
 									favs.unshift({ "pid": pid, "fid": res.data.data[0].fId, "favorite": res.data.data[0], "project": _this.data.project }); //res.data.data[0]);
-									wx.setStorage({
+									swan.setStorage({
 										key: key,
 										data: favs,
 									}); 
@@ -115,7 +115,7 @@ Page({
 
 		// 获取project所有的layouts
 		const url_layout = app.globalData.main_url + '/layouts/getbycond?pId=' + options.pId;
-		wx.request({
+		swan.request({
 			url: url_layout,
 			data: {},
 			header: {
@@ -141,7 +141,7 @@ Page({
 		var added = this.data.addfav;
 
 		if(this.data.userId == -1){
-			wx.switchTab({
+			swan.switchTab({
 				url: '/pages/my/my',
 			});
 			return;
@@ -150,11 +150,11 @@ Page({
 		if(!added){
 			const key = 'myfavorites';
 			var pid = this.data.project.pId;
-			var favs = wx.getStorageSync(key) || [];
+			var favs = swan.getStorageSync(key) || [];
 			var fi = util.array_find_obj(favs, "pid", pid);
 			if (fi == -1) {
 				favs.unshift({ "pid": pid, "fid": 0, "favorite": { "fId": 0, "pId": pid, "userId": this.data.userId}, "project": this.data.project });
-				wx.setStorage({
+				swan.setStorage({
 					key: key,
 					data: favs
 				});
@@ -162,7 +162,7 @@ Page({
 				const url = app.globalData.main_url + '/favorites/add?pId=' + _this.data.project.pId + '&userId=' + _this.data.userId;
 				// 请求数据
 				//var _res = res;
-				wx.request({
+				swan.request({
 					url: url,
 					data: {},
 					header: {
@@ -171,7 +171,7 @@ Page({
 					success: function (res) {
 						if (res.statusCode == 200 && res.data.fId > 0) {
 							favs.unshift({ "pid": pid, "project": this.data.project });
-							wx.setStorage({
+							swan.setStorage({
 								key: key,
 								data: favs,
 							})
@@ -188,7 +188,7 @@ Page({
 				addfav: false
 			});
 			const key = 'myfavorites';
-			var favs = wx.getStorageSync(key);
+			var favs = swan.getStorageSync(key);
 			if(favs.length == 0){
 				console.log("Error: favorite storage incorrect!!!");
 				return;
@@ -197,7 +197,7 @@ Page({
 			var fi = util.array_find_obj(favs,"pid",pid);
 			console.log(fi);
 			favs.splice(fi,1);
-			wx.setStorage({
+			swan.setStorage({
 				key: key,
 				data: favs
 			});
@@ -205,7 +205,7 @@ Page({
   },
 
   gotoHongbao: function() {
-    wx.navigateTo({
+    swan.navigateTo({
 			url: "/pages/reserve/reserve?pId=" + this.data.project.pId + "&pName=" + this.data.project.pName + "&country=" + this.data.project.area__countryId__name + "&city=" + this.data.project.area__cityId__name+ "&lowsq=" + this.data.project.minSquare + "&highsq=" + this.data.project.maxSquare + "&lowprice=" + this.data.project.minPrice + "&highprice=" + this.data.project.maxPrice + "&image=" + this.data.project.thumbnail
     })
   },
@@ -221,7 +221,7 @@ Page({
 			const url = app.globalData.main_url + '/favorites/addifnotexist?pId=' + _this.data.project.pId + '&userId=' + _this.data.userId;
 			// 请求数据
 			//var _res = res;
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -232,11 +232,11 @@ Page({
 						console.log("addifnotexist");
 						const key = 'myfavorites';
 						var pid = _this.data.project.pId;
-						var favs = wx.getStorageSync(key) || [];
+						var favs = swan.getStorageSync(key) || [];
 						var fi = util.array_find_obj(favs, "pid", pid);
 						if (fi == -1) {
 							favs.unshift({ "pid": pid, "fid": res.data.fId, "favorite": { "fId": res.data.fId, "pId": pid, "userId": _this.data.userId }, "project": _this.data.project });
-							wx.setStorage({
+							swan.setStorage({
 								key: key,
 								data: favs
 							});
@@ -247,13 +247,13 @@ Page({
 			});
 		} else {
 			const key = 'myfavorites';
-			var favs = wx.getStorageSync(key);
+			var favs = swan.getStorageSync(key);
 			var pid = this.data.project.pId;
 			var fi = util.array_find_obj(favs, "pid", pid);	// not pid and fid???
 			if (fi >= 0 && favs.length > 0){
 				console.log(fi);
 				favs.splice(fi, 1);
-				wx.setStorage({
+				swan.setStorage({
 					key: key,
 					data: favs
 				});
@@ -262,7 +262,7 @@ Page({
 			const url = app.globalData.main_url + '/favorites/delete?fId=' + _this.data.favorite.fId;
 			// 请求数据
 			//var _res = res;
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -279,7 +279,7 @@ Page({
 	},
 
 	goHome: function () {
-		wx.switchTab({
+		swan.switchTab({
 			url: "../index/index",
 			fail: function (e) {
 				console.log(e);
@@ -288,7 +288,7 @@ Page({
 	},
 
 	gotoProvider: function () {
-		wx.navigateTo({
+		swan.navigateTo({
 			url: '../provider/provider?spid=' + this.data.project.pkprovider__spId + '&name=' + this.data.project.pkprovider__spName + '&detail=' + this.data.project.pkprovider__description + '&image=' + this.data.project.pkprovider__imgurl,
 		})
 	},
@@ -298,7 +298,7 @@ Page({
    */
   onReady: function() {
     // 修改导航栏标题
-    wx.setNavigationBarTitle({
+    swan.setNavigationBarTitle({
       title: this.data.title //"项目详情" //this.project.pName
     })
   }

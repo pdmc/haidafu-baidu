@@ -73,7 +73,7 @@ Page({
 		const url = app.globalData.main_url + '/projects';
     // + options.type;
     // 请求数据
-    wx.request({
+    swan.request({
       url: url,
       data: {},
       header: {
@@ -92,7 +92,7 @@ Page({
 		// 请求地区数据
 		const url_area = app.globalData.main_url + '/areas/';
 		// + options.type;
-		wx.request({
+		swan.request({
 			url: url_area,
 			data: {},
 			header: {
@@ -134,7 +134,7 @@ Page({
 		// 请求户型图数据
 		const url_layout = app.globalData.main_url + '/layouts/';
 		// + options.type;
-		wx.request({
+		swan.request({
 			url: url_layout,
 			data: {},
 			header: {
@@ -188,7 +188,7 @@ Page({
 		// 请求物业类型数据
 		const url_fitment = app.globalData.main_url + '/fitments';
 		// + options.type;
-		wx.request({
+		swan.request({
 			url: url_fitment,
 			data: {},
 			header: {
@@ -370,7 +370,7 @@ Page({
 		/*_this.setData({
 			loading: true // 打开等待框
 		})*/
-		wx.request({
+		swan.request({
 			url: url,
 			method: "POST",
 			data: newpost,

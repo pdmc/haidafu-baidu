@@ -1,5 +1,5 @@
-/* pages/activity/activity.wxss */
-@import "../../static/css/common.wxss";
+/* pages/activity/activity.css */
+@import "../../static/css/common.css";
 
 .activityArea {
   height: 100%;

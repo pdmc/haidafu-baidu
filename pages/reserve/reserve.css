@@ -1,5 +1,5 @@
-/* pages/reserve/reserve.wxss */
-@import "../../static/css/common.wxss";
+/* pages/reserve/reserve.css */
+@import "../../static/css/common.css";
 
 .formView {
 	padding: 20rpx 0rpx;

@@ -17,10 +17,10 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: userinfo,
 					hasUserInfo: true
@@ -36,7 +36,7 @@ Page({
 		
 		// 同步hongbao db，需要userId，异步问题？
 		const key = 'myhongbaos';
-		var myhongbaos = wx.getStorageSync(key) || [];
+		var myhongbaos = swan.getStorageSync(key) || [];
 		if(myhongbaos.length > 0){
 			this.setData({
 				list: myhongbaos
@@ -47,7 +47,7 @@ Page({
 			const url = app.globalData.main_url + '/hongbaos/getbycond?userId=' + userinfo.userId;
 			// + options.type;
 			// 请求数据
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -65,7 +65,7 @@ Page({
 							var hongbao = { "hbid": res.data.data[i].hbId, "amount": res.data.data[i].amount, "state": res.data.data[i].state};
 							var project = { "pid": res.data.data[i].pkproject__pId, "name": res.data.data[i].pkproject__pName, "lowsq": res.data.data[i].pkproject__minSquare, "highsq": res.data.data[i].pkproject__maxSquare, "lowprice": res.data.data[i].pkproject__minPrice, "highprice": res.data.data[i].pkproject__maxPrice, "country": res.data.data[i].area__name, "image": res.data.data[i].pkproject__thumbnail};
 							myhongbaos.unshift({ "hbid": res.data.data[i].hbId, "userid": _this.data.userInfo.userId, "hongbao": hongbao, "project": project });
-							wx.setStorage({
+							swan.setStorage({
 								key: key,
 								data: myhongbaos
 							});
@@ -79,7 +79,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title //"项目详情" //this.project.pName
 		})
 	}

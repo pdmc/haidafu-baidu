@@ -1,7 +1,7 @@
 <!--pages/myreservation/myreservation.wxml-->
 <view class="container">
 	<view class="select-tab">
-		<block wx:for="{{labels}}" wx:for-index="bindex"  wx:key="*this">
+		<block s-for="{{labels}}" s-for-index="bindex"  >
 			<view data-index='{{bindex}}' class="{{_num==bindex?'active':'inactive'}}" bindtap='toggle'>
 				{{item}}
 			</view>
@@ -9,7 +9,7 @@
 	</view>
 	<loading hidden="{{!loading}}">加载中...</loading>
 	<view data-index="0"  class="select-page {{_num==0?'show':'hidden'}}">
-		<block wx:for="{{activities}}" wx:for-index="index" wx:key="*this">
+		<block s-for="{{activities}}" s-for-index="index" >
 		<view class="actitem flex-vertical">
 			<view class='text-high flex-inline-left'>
 				<text class='actlabel'>活动</text>
@@ -34,7 +34,7 @@
 		</block>
 	</view>
 	<view data-index="1" class="select-page {{_num==1?'show':'hidden'}}">
-		<block wx:for="{{reservations}}" wx:for-index="pindex" wx:key="*this">
+		<block s-for="{{reservations}}" s-for-index="pindex" >
 			<navigator url='../project/project?pId={{item.project.pid}}' class='flex-inline-between'>
 				<view data-index="{{index}}" class='item'>
 					<image class='poster' src='{{item.project.image}}'></image>

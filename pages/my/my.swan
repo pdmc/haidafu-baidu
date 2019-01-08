@@ -2,15 +2,15 @@
 <view class="container">
     <!-- audio测试 2 -->
 	<view class="header">
-    <view wx:if="{{!authorized}}">
+    <view s-if="{{!authorized}}">
       <button 
-        wx:if="{{canIUse}}" 
+        s-if="{{canIUse}}" 
         open-type="getUserInfo" 
         bindgetuserinfo="getUserInfo"
       >授权登录</button>
-      <view wx:else>请升级微信版本</view>
+      <view s-else>请升级微信版本</view>
     </view>
-    <block wx:else>
+    <block s-else>
 			<view class="infoArea flex-inline-left">
       	<image class="avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
 				<view class="nameArea flex-vertical">

@@ -1,6 +1,6 @@
-/* pages/provider/provider.wxss */
+/* pages/provider/provider.css */
 /*  -------------- 查询返回列表 ------------------ */
-@import "../../static/css/common.wxss";
+@import "../../static/css/common.css";
 
 .page-body {   
 	width: 100%;   

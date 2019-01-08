@@ -37,7 +37,7 @@ const checkMobile =  function (mobile) {
 
 const myStorageFind = function (key, key2, value2) {
 	//const key = 'myfavorites';
-	var favs = wx.getStorageSync(key);
+	var favs = swan.getStorageSync(key);
 	if (favs.length == 0) {
 		console.log("Info: my storage empty!!!");
 		return;
@@ -50,7 +50,7 @@ const myStorageFind = function (key, key2, value2) {
 
 const myStorageDel = function () {
 	//const key = 'myfavorites';
-	var favs = wx.getStorageSync(key);
+	var favs = swan.getStorageSync(key);
 	if (favs.length == 0) {
 		console.log("Info: my storage empty!!!");
 		return;
@@ -59,7 +59,7 @@ const myStorageDel = function () {
 	var fi = array_find_obj(favs, key2, value2);
 	//console.log(fi);
 	favs.splice(fi, 1);
-	wx.setStorage({
+	swan.setStorage({
 		key: key,
 		data: favs
 	});

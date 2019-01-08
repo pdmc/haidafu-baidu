@@ -26,7 +26,7 @@ Page({
 		//isLogin: false,
 		userInfo: {},
 		hasUserInfo: false,
-		canIUse: wx.canIUse('button.open-type.getUserInfo')
+		canIUse: swan.canIUse('button.open-type.getUserInfo')
 	},
 
 	/**
@@ -42,10 +42,10 @@ Page({
 			project: project
 		});
 
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: userinfo,
 					hasUserInfo: true
@@ -61,7 +61,7 @@ Page({
 		// check reservation db
 		var url = app.globalData.main_url + '/reservations/getbycond?pId=' + options.pId + '&userId=' + this.data.userInfo.userId;
 		// 请求数据
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -78,11 +78,11 @@ Page({
 					*	更新reservation缓存
 					*/
 					const key = 'myreservations';
-					var myreservations = wx.getStorageSync(key) || [];
+					var myreservations = swan.getStorageSync(key) || [];
 					var fi = util.array_find_obj(myreservations, "rid", rid);
 					if (fi < 0) {
 						myreservations.unshift({ "rid": rid, "userid": _this.data.userInfo.userId, "reservation": res.data.data[0], "project": project });
-						wx.setStorage({
+						swan.setStorage({
 							key: key,
 							data: myreservations
 						});
@@ -96,7 +96,7 @@ Page({
 		// check hongbao db
 		url = app.globalData.main_url + '/hongbaos/getbycond?pId=' + options.pId + '&userId=' + this.data.userInfo.userId;
 		// 请求数据
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -110,11 +110,11 @@ Page({
 					*	更新hongbao缓存
 					*/
 					const key = 'myhongbaos';
-					var myhongbaos = wx.getStorageSync(key) || [];
+					var myhongbaos = swan.getStorageSync(key) || [];
 					var fi = util.array_find_obj(myhongbaos, "hbid", hbid);
 					if (fi < 0) {
 						myhongbaos.unshift({ "hbid": hbid, "userid": _this.data.userInfo.userId, "hongbao": res.data.data[0], "project": project });
-						wx.setStorage({
+						swan.setStorage({
 							key: key,
 							data: myhongbaos
 						});
@@ -178,7 +178,7 @@ Page({
 	},
 	
 	sendVerify1: function () {
-		wx.showToast({
+		swan.showToast({
 			title: '暂时不需要短信验证码！',
 			icon: 'success',
 			duration: 1000,
@@ -214,7 +214,7 @@ Page({
 			return;
 		} else {
 			var url = app.globalData.main_url + '/verify/sendverify?mobile=' + mobile;
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -255,7 +255,7 @@ Page({
 		var veriId = this.data.veriId;
 		var code = parseInt(verify);
 		var url = app.globalData.main_url + '/verify/verify?veriId=' + veriId + '&code=' + code;
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -297,10 +297,10 @@ Page({
 			});
 		}
 		if (!this.data.nameError && !this.data.mobileError && !this.data.verifyError) {
-			var userinfo = wx.getStorageSync('userinfo');
+			var userinfo = swan.getStorageSync('userinfo');
 
 			if (!userinfo || userinfo.userId == undefined) {
-				wx.showToast({
+				swan.showToast({
 					title: '用户未登录！',
 					icon: 'none',
 					duration: 1500,
@@ -310,7 +310,7 @@ Page({
 			}
 			const url = app.globalData.main_url + '/reservations/addwithhbifnotexist?pId=' + this.data.pId + '&userId=' + userinfo.userId + '&trueName=' + this.data.name + '&phone=' + this.data.mobile + '&verify=' + this.data.verify + '&applyTime=' + this.data.reserveDate + '&source=1&amount=10000';
 			// 请求数据
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -325,7 +325,7 @@ Page({
 						var rid = res.data.rId;
 						var hbid = res.data.hbId;
 						const key1 = "myreservations";
-						var reservations = wx.getStorageSync(key1) || [];
+						var reservations = swan.getStorageSync(key1) || [];
 						var fi = util.array_find_obj(reservations, "rid", rid);
 						if (fi < 0) {
 							var applytime = _this.data.reserveDate;
@@ -334,7 +334,7 @@ Page({
 							}
 							var reservation = { "rid": rid, "userid": userinfo.userId, "pid": _this.data.pId, "applytime": applytime, "name": _this.data.trueName, "mobile": _this.data.phone };
 							reservations.unshift({ "rid": rid, "userid": _this.data.userInfo.userId, "reservation": reservation, "project": _this.data.project });
-							wx.setStorage({
+							swan.setStorage({
 								key: key1,
 								data: reservations
 							});
@@ -343,23 +343,23 @@ Page({
 						*	更新hongbao缓存
 						*/
 						const key2 = 'myhongbaos';
-						var myhongbaos = wx.getStorageSync(key2) || [];
+						var myhongbaos = swan.getStorageSync(key2) || [];
 						var fi = util.array_find_obj(myhongbaos, "hbid", hbid);
 						if (fi < 0) {
 							var hongbao = { "hbid": hbid, "userid": userinfo.userId, "pid": _this.data.pId, "amount": 10000, "source": 1 };
 							myhongbaos.unshift({ "hbid": hbid, "userid": _this.data.userInfo.userId, "hongbao": hongbao, "project": _this.data.project});
-							wx.setStorage({
+							swan.setStorage({
 								key: key2,
 								data: myhongbaos
 							});
 						} 
 
-						wx.navigateTo({
+						swan.navigateTo({
 							url: "/pages/reserveok/reserveok"
 						})
 					}
 				}
-			});	/* wx.request */
+			});	/* swan.request */
 		} /* if */
 	},
 
@@ -369,10 +369,10 @@ Page({
 		this.setData({
 			hasUserInfo: true
 		});
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo) {
 			app.globalData.userInfo = e.detail.userInfo;
-			wx.setStorage({
+			swan.setStorage({
 				key: "userinfo",
 				data: e.detail.userInfo
 			});
@@ -383,7 +383,7 @@ Page({
 			});
 		} else {
 			var logcb = function(){
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: userinfo,
 					hasUserInfo: true
@@ -394,7 +394,7 @@ Page({
 	},
 
 	goHome: function () {
-		wx.switchTab({
+		swan.switchTab({
 			url: "../index/index",
 			fail: function (e) {
 				console.log(e);
@@ -406,7 +406,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title //"项目详情" //this.project.pName
 		})
 

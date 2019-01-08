@@ -1,5 +1,5 @@
-/* pages/projectlist/projectlist.wxss */
-@import "../../static/css/common.wxss";
+/* pages/projectlist/projectlist.css */
+@import "../../static/css/common.css";
 
 /* 带遮罩层的下拉菜单 *//*根布局-点击项*/ 
 .container {   

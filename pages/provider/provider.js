@@ -30,7 +30,7 @@ Page({
 		// 拼接请求url
 		const url = app.globalData.main_url + '/projects/getbycond?spId=' + provider.spid;
 		// 请求数据
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {

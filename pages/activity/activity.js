@@ -26,7 +26,7 @@ Page({
 		userInfo: {},
 		//isLogin: false,
 		//hasUserInfo: false,
-		canIUse: wx.canIUse('button.open-type.getUserInfo')
+		canIUse: swan.canIUse('button.open-type.getUserInfo')
 	},
 
 	/**
@@ -36,10 +36,10 @@ Page({
 		const _this = this;
 		// 拼接请求url
 		//console.log(options.actId);
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: userinfo
 				});
@@ -53,7 +53,7 @@ Page({
 		
 		const url = app.globalData.main_url + '/activity/getbyid?actId=' + options.actId;
 		// 请求数据
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -75,7 +75,7 @@ Page({
 					*	检查storage缓存，判断当前用户是否已预约。
 					*/
 					const key = 'myactivities';
-					var myactivities = wx.getStorageSync(key) || [];
+					var myactivities = swan.getStorageSync(key) || [];
 					var fi = util.array_find_obj(myactivities, "actid", activity.actId);
 					if (fi >= 0) {
 						_this.setData({
@@ -86,7 +86,7 @@ Page({
 						const url = app.globalData.main_url + '/myactivity/getbycond?actId=' + options.actId + '&userId=' + _this.data.userInfo.userId;
 						// 请求数据
 						//var _res = res;
-						wx.request({
+						swan.request({
 							url: url,
 							data: {},
 							header: {
@@ -101,7 +101,7 @@ Page({
 									var activity = { "actid": res.data.data[0].pkactivity__actId, "name": res.data.data[0].pkactivity__subject, "address": res.data.data[0].pkactivity__address, "time": time, "image": res.data.data[0].pkactivity__imgurl};
 									var myactivity = { "maid": res.data.data[0].maId, "userid": _this.data.userInfo.userId, "actid": res.data.data[0].pkactivity__actId, "myactivity": res.data.data[0], "activity": activity};
 									myactivities.unshift(myactivity);
-									wx.setStorage({
+									swan.setStorage({
 										key: key,
 										data: myactivities,
 									});
@@ -166,7 +166,7 @@ Page({
 	},
 
 	sendVerify1: function () {
-		wx.showToast({
+		swan.showToast({
 			title: '暂时不需要短信验证码！',
 			icon: 'success',
 			duration: 1000,
@@ -194,7 +194,7 @@ Page({
 			return;
 		} else {
 			var url = app.globalData.main_url + '/verify/sendverify?mobile=' + mobile;
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -235,7 +235,7 @@ Page({
 		var veriId = this.data.veriId;
 		var code = parseInt(verify);
 		var url = app.globalData.main_url + '/verify/verify?veriId=' + veriId + '&code=' + code;
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -260,10 +260,10 @@ Page({
 	},
 
 	goHome: function () {
-		//wx.navigateTo({
+		//swan.navigateTo({
 		//	url: '../index/index',
 		//});
-		wx.navigateBack();
+		swan.navigateBack();
 	},
 
 	submit: function () {
@@ -284,10 +284,10 @@ Page({
 			});
 		}
 		if (!this.data.nameError && !this.data.mobileError && !this.data.verifyError) {
-			var userinfo = wx.getStorageSync('userinfo');
+			var userinfo = swan.getStorageSync('userinfo');
 
 			if (!userinfo || userinfo.userId == undefined) {
-				wx.showToast({
+				swan.showToast({
 					title: '用户未登录！',
 					icon: 'none',
 					duration: 1500,
@@ -297,7 +297,7 @@ Page({
 			}
 			const url = app.globalData.main_url + '/myactivity/addifnotexist?actId=' + this.data.activity.actId + '&userId=' + userinfo.userId + '&trueName=' + this.data.name + '&phone=' + this.data.mobile + '&verify=' + this.data.verify + '&status=0';
 			// 请求数据
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -307,7 +307,7 @@ Page({
 					//console.log(res.data);
 					if (res.statusCode == 200 && res.data.maId > 0) {
 						var key = "myactivities";
-						var myactivities = wx.getStorageSync(key) || [];
+						var myactivities = swan.getStorageSync(key) || [];
 						var time = _this.data.activity.startTime;
 						if (time.length > 16 && time.indexOf('T') > 0) {
 							time = time.substr(0, 10) + ' ' + time.substr(11, 5);
@@ -316,12 +316,12 @@ Page({
 						var myact = { "maid": res.data.maId, "actid": _this.data.activity.actId, "userid": userinfo.userId, "status": 0};
 						var myactivity = { "maid": res.data.maId, "userid": userinfo.userId, "actid": _this.data.activity.actId, "activity": activity, "myactivity": myact};
 						myactivities.unshift(myactivity);
-						wx.setStorage({
+						swan.setStorage({
 							key: key,
 							data: myactivities
 						});
 
-						wx.navigateTo({
+						swan.navigateTo({
 							url: "/pages/activityok/activityok"
 						});
 					}
@@ -333,10 +333,10 @@ Page({
 	getUserInfo: function (e) {
 		var _this = this;
 		console.log(e);
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo){
 			app.globalData.userInfo = e.detail.userInfo;
-			wx.setStorage({
+			swan.setStorage({
 				key: "userinfo",
 				data: e.detail.userInfo
 			});
@@ -347,7 +347,7 @@ Page({
 			});
 		} else {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: userinfo
 				});
@@ -360,7 +360,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title //"项目详情" //this.project.pName
 		})
 

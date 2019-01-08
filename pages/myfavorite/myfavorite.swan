@@ -2,7 +2,7 @@
   <!--列表-->
 <view class="container">
   <view class='page-body'>
-    <view class='page-list flex-inline-between' wx:for="{{list}}" wx:key="*this">
+    <view class='page-list flex-inline-between' s-for="{{list}}" >
 			<navigator url='../project/project?pId={{item.project.pId}}'>
 				<!--view data-index="{{index}}" class='item' style="{{txtStyle}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"-->
 				<view data-index="{{index}}" class='item'>

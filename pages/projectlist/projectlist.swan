@@ -3,7 +3,7 @@
 <!--列表页-->
 <view class='container'>
   <view class="pick-header flex-inline-between">
-    <block wx:for="{{menus}}" wx:key="*this">
+    <block s-for="{{menus}}" >
       <view class="pick-tab flex-inline-left {{opickers[index]?'active':''}}" data-index="{{index}}" bindtap="onPickTabClick">
         <view class="pick-text">{{menus[index]}}</view>
         <view class="pick-icon"></view>
@@ -12,7 +12,7 @@
   </view>
 	<!------------------Tab1-------------------->
   <view class="tab1 {{needAnimation[0]?(opickers[0]?'slidown':'slidup'):''}}">
-    <block wx:for="{{tabPriceList}}" wx:for-item="item" wx:key="*this">
+    <block s-for="{{tabPriceList}}" s-for-item="item" >
       <view data-index="{{index}}" bindtap='clickPick'>
         <text style="{{index == priceItemId?'color:#1FAFFF;background-color:rgba(187, 187, 187, 0.3)':''}}">{{item}} </text>
       </view>
@@ -35,15 +35,15 @@
 		<picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="areaChange">
 			<picker-view-column>
 				<view>不限</view>
-				<view wx:for="{{countries}}" wx:key="*this" style="line-height: 50px">{{item}}</view>
+				<view s-for="{{countries}}"  style="line-height: 50px">{{item}}</view>
 			</picker-view-column>
 			<picker-view-column>
 				<view>不限</view>
-				<view wx:for="{{provinces}}" wx:key="*this" style="line-height: 50px">{{item}}</view>
+				<view s-for="{{provinces}}"  style="line-height: 50px">{{item}}</view>
 			</picker-view-column>
 			<picker-view-column>
 				<view>不限</view>
-				<view wx:for="{{cities}}" wx:key="*this" style="line-height: 50px">{{item}}</view>
+				<view s-for="{{cities}}"  style="line-height: 50px">{{item}}</view>
 			</picker-view-column>
 		</picker-view>
   </view>
@@ -51,7 +51,7 @@
   <view class="tab3 {{needAnimation[2]?(opickers[2]?'slidown':'slidup'):''}}  flex-vertical">
 		<text class="marginLeft">户型</text>
 		<view class="type-area  flex-inline-left">
-			<block wx:for="{{tabLayouts}}" wx:key="*this">
+			<block s-for="{{tabLayouts}}" >
 				<view class="type-tab" data-index="{{index}}" bindtap='layoutChange'>
 					<text style="{{index == layoutItemId?'background-color:#1FAFFF;color:#FFFFFF;':''}}">{{item}} </text>
 				</view>
@@ -59,7 +59,7 @@
 		</view>
 		<text class="marginLeft">物业类型</text>
 		<view class="type-area  flex-inline-left">
-			<block wx:for="{{tabTypes}}" wx:key="*this">
+			<block s-for="{{tabTypes}}" >
 				<view class="type-tab" data-index="{{index}}" bindtap='typeChange'>
 					<text style="{{index == typeItemId?'background-color:#1FAFFF;color:#FFFFFF;':''}}">{{item}} </text>
 				</view>
@@ -72,7 +72,7 @@
 	</view>
 	<!------------------Tab4-------------------->
 	<view class="tab4 {{needAnimation[3]?(opickers[3]?'slidown':'slidup'):''}}">
-		<block wx:for="{{tabOrders}}" wx:for-item="item" wx:key="*this">
+		<block s-for="{{tabOrders}}" s-for-item="item" >
       <view data-index="{{index}}" bindtap='orderChange' style="{{index == orderItemId?'color:#1FAFFF;background-color:rgba(187, 187, 187, 0.3)':''}}">
         <text>{{item}} </text>
       </view>
@@ -85,9 +85,9 @@
 
   <!--列表-->
   <view class='page-body'>
-    <view class='page-list' wx:for="{{list}}" wx:key="id">
+    <view class='page-list' s-for="{{list}}" wx:key="id">
       <!--类型判断,显示不同的数据-->
-      <block wx:if="{{type === 'us_box'}}">
+      <block s-if="{{type === 'us_box'}}">
         <navigator url='../project/project?pId={{item.pId}}'>
           <view class='item'>
             <image class='poster' src='{{item.thumbnail}}'></image>

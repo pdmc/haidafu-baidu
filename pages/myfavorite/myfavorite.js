@@ -21,7 +21,7 @@ Page({
 	 */
 	onLoad: function (options) {
 		const key = 'myfavorites';
-		var favs = wx.getStorageSync(key) || [];
+		var favs = swan.getStorageSync(key) || [];
 		this.setData({
 			list: favs
 		});
@@ -102,7 +102,7 @@ Page({
 			console.log(this.data.editIndex);
 			var index = e.target.dataset.index;
 			const key = 'myfavorites';
-			var favs = wx.getStorageSync(key);
+			var favs = swan.getStorageSync(key);
 			if (favs.length == 0) {
 				console.log("Error: favorite storage incorrect!!!");
 				return;
@@ -111,7 +111,7 @@ Page({
 			var fi = util.array_find_obj(favs, "pid", pid);
 			console.log(fi);
 			favs.splice(fi, 1);
-			wx.setStorage({
+			swan.setStorage({
 				key: key,
 				data: favs
 			});
@@ -126,7 +126,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title //"项目详情" //this.project.pName
 		})
 	}

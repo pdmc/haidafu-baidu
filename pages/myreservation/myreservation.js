@@ -21,10 +21,10 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: userinfo,
 					hasUserInfo: true
@@ -40,7 +40,7 @@ Page({
 
 		// 同步activity db，需要userId，异步问题？
 		const key1 = 'myactivities';
-		var myactivities = wx.getStorageSync(key1) || [];
+		var myactivities = swan.getStorageSync(key1) || [];
 		if (myactivities.length > 0) {
 			this.setData({
 				activities: myactivities,
@@ -53,7 +53,7 @@ Page({
 			const url = app.globalData.main_url + '/myactivity/getbycond?userId=' + userinfo.userId;
 			// + options.type;
 			// 请求数据
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -63,7 +63,7 @@ Page({
 					//console.log(res.data);
 					if (res.statusCode == 200 && res.data.data.length > 0) {
 						//var key = "myactivities";
-						//var myactivities = wx.getStorageSync(key1) || [];
+						//var myactivities = swan.getStorageSync(key1) || [];
 						for (let i = 0; i < res.data.data.length; i++) {
 							var time = res.data.data[i].pkactivity__startTime;
 							if (time.length > 16 && time.indexOf('T') > 0) {
@@ -74,7 +74,7 @@ Page({
 							var myactivity = { "maid": res.data.data[i].maId, "userid": userinfo.userId, "actid": res.data.data[i].pkactivity__actId, "activity": activity, "myactivity": myact };
 							myactivities.unshift(myactivity);
 						}
-						wx.setStorage({
+						swan.setStorage({
 							key: key1,
 							data: myactivities
 						});
@@ -90,7 +90,7 @@ Page({
 
 		// 同步reservation db，需要userId，异步问题？
 		const key2 = 'myreservations';
-		var myreservations = wx.getStorageSync(key2) || [];
+		var myreservations = swan.getStorageSync(key2) || [];
 		if (myreservations.length > 0) {
 			this.setData({
 				reservations: myreservations,
@@ -102,7 +102,7 @@ Page({
 			const url = app.globalData.main_url + '/reservations/getbycond?userId=' + userinfo.userId;
 			// + options.type;
 			// 请求数据
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -112,7 +112,7 @@ Page({
 					//console.log(res.data);
 					if (res.statusCode == 200 && res.data.data.length > 0) {
 						//var key = "myreservations";
-						//var myreservations = wx.getStorageSync(key) || [];
+						//var myreservations = swan.getStorageSync(key) || [];
 						for (let i = 0; i < res.data.data.length; i++) {
 							var project = { "pid": res.data.data[i].pkproject__pId, "name": res.data.data[i].pkproject__pName, "country": res.data.data[i].countryId__area__name, "city": res.data.data[i].cityId__area__name, "lowsq": res.data.data[i].pkproject__minSquare, "highsq": res.data.data[i].pkproject__maxSquare, "lowprice": res.data.data[i].pkproject__minPrice, "highprice": res.data.data[i].pkproject__maxPrice, "image": res.data.data[i].pkproject__thumbnail };
 							var applytime = res.data.data[i].applyTime;
@@ -123,7 +123,7 @@ Page({
 							var myreservation = { "rid": res.data.data[i].rId, "userid": _this.data.userInfo.userId, "reservation": reservation, "project": project };
 							myreservations.unshift(myreservation);
 						}
-						wx.setStorage({
+						swan.setStorage({
 							key: key2,
 							data: myreservations
 						});
@@ -151,7 +151,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title //"项目详情" //this.project.pName
 		})
 	}

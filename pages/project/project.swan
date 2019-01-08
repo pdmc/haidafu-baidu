@@ -3,7 +3,7 @@
 <!--等待框-->
 <loading hidden="{{!loading}}">加载中...</loading>
 <!--滚动列表-->
-<scroll-view scroll-y="true" wx:if="{{true}}">
+<scroll-view scroll-y="true" s-if="{{true}}">
   <view class="sliderarea">
     <swiper class="sw"
       indicator-dots="{{indicatorDots}}"
@@ -15,7 +15,7 @@
       previousMargin="{{previousMargin}}"
       nextMargin="{{nextMargin}}"
     >
-      <block wx:for="{{imgUrls}}" wx:key="*this">
+      <block s-for="{{imgUrls}}" >
         <swiper-item class="swiper-item">
           <image src="{{item}}" class="slide-image" mode='widthFix'/>
         </swiper-item>
@@ -55,7 +55,7 @@
 				display-multiple-items="2"
 				circular="true"
 				bindchange="bindChange111">
-				<block wx:for="{{layouts}}" wx:for-index="index" wx:key="*this">
+				<block s-for="{{layouts}}" s-for-index="index" >
 					<swiper-item class="select-swiper-item">
 						<view class="flex-vertical">
 							<text class='lorooms'>{{item.livingroomNum}}室{{item.bedroomNum}}厅{{item.bathroomNum}}卫</text>
@@ -78,8 +78,8 @@
     </view>
     <view class='etcc'>
       <text class='info'>能否贷款</text>
-      <text class='sentence' wx:if="{{project.canLoad}}">能</text>
-      <text class='sentence' wx:else>否</text>
+      <text class='sentence' s-if="{{project.canLoad}}">能</text>
+      <text class='sentence' s-else>否</text>
     </view>
     <view class='etcc'>
       <text class='info'>规划面积</text>

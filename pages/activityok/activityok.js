@@ -9,7 +9,7 @@ Page({
 	},
 
 	goHome: function () {
-		wx.switchTab({
+		swan.switchTab({
 			url: "../index/index",
 			fail: function (e) {
 				console.log(e);
@@ -27,7 +27,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title //"项目详情" //this.project.pName
 		})
 	}
