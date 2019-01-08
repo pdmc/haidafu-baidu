@@ -1,0 +1,267 @@
+/* pages/projectlist/projectlist.wxss */
+@import "../../static/css/common.wxss";
+
+/* 带遮罩层的下拉菜单 *//*根布局-点击项*/ 
+.container {   
+	width: 100%;   
+	height: 100%;  
+	position: absolute; 
+} 
+
+
+/*  -------------- 下拉列表 ------------------ */
+
+/*筛选头部*/ 
+.pick-header {      /* == nav */
+	width: 100%;   
+	z-index: 60;   
+	position: fixed;   
+  margin: 0rpx;
+	font-size: 28rpx;  
+	color: #737373;  
+	background-color: #FFFFFF; 
+} 
+.pick-tab {      /* == nav-son */
+  text-align: center;
+	padding: 40rpx 30rpx 40rpx 20rpx;  
+  /*height: 40px;
+  font-size: 32rpx;*/
+}
+.pick-icon {
+  display: inline-block;
+  border: 4px solid transparent;
+  border-top: 4px solid #737373;
+  margin-left: 5px;
+}
+
+.pick-tab.active .pick-text {
+  color: #1FAFFF;
+}
+.pick-tab.active .pick-icon {
+  border-bottom: 4px solid #1FAFFF;
+  border-top: 0;
+}
+
+
+
+/*  -------------- 选项卡 1 ------------------ */
+.tab1 {     /*   == quyu */
+	width: 100%;   
+	background-color: #fff;   
+	position: absolute;   
+	z-index: 50;  
+  /*height: 1200rpx;  相差选择栏高度120rpx */
+	top: -840rpx; 
+	font-size: 28rpx;  
+} 
+.tab1 text { 
+ 	display: block;  
+	line-height: 78rpx;  
+	margin-left: 30rpx;
+ 	border-bottom: 1px solid #FFFFFF;
+ }
+ /*筛选项隐藏 显示动画 start*/ 
+ @keyframes slidown {   
+ 	from {     transform: translateY(0%);   }   
+ 	to {     transform: translateY(100%);   } 
+ } 
+ .slidown {   
+ 	display: block;   
+ 	animation: slidown 0.1s ease-in both; 
+ } 
+ @keyframes slidup {   
+ 	from { transform: translateY(100%); }   
+ 	to { transform: translateY(0%); } 
+} 
+.slidup {  
+	display: block;   
+	animation: slidup 0.2s ease-in both; 
+} 
+/*筛选项隐藏 显示动画 end*/ /*筛选项显示出来的时候的阴影*/ 
+.shadow {   
+	width: 100%;   
+	height: 100%;  
+	background-color: rgba(0, 0, 0, 0.3);   
+	z-index: 40;   
+	top: 0rpx; 
+} 
+
+.sliderView{
+  position: relative;
+  width: 93%;
+  margin: 0rpx 0rpx 30rpx 0rpx;
+	background-color: #fff;
+}
+.left{
+  position: absolute;
+	top: -30rpx;
+  width: 90%;
+}
+.right{
+  position: absolute;
+	top: -30rpx;
+  width: 90%;
+}
+.button-area {
+	width: 90%;
+	margin: 70rpx 20rpx 20rpx 20rpx;
+	font-size: 32rpx;
+}
+.button-area button {
+	width: 45%;
+	font-size: 32rpx;
+}
+.button-area button:active {
+	background-color: #1FAFFF;
+	color: #FFFFFF;
+}
+
+
+
+/*  -------------- 选项卡 2 ------------------ */
+
+.tab2 {     /*   == quyu */
+	width: 100%;   
+	position: absolute;   
+	z-index: 50;  
+  /* 
+	background-color: #FFFFFF;   
+	height: 400rpx;  120rpx 
+	border: 1rpx #000 solid;*/
+	top: -586rpx; 
+	font-size: 28rpx;  
+	padding-left: 20rpx;
+	background-color: #FFFFFF;   
+} 
+.tab2 picker-view {
+  height: 300rpx;
+}
+
+
+
+/*  -------------- 选项卡 3 ------------------ */
+.tab3 {
+	width: 100%;   
+	position: absolute;   
+	z-index: 50;  
+	background-color: #EEEEEE;   
+  /* 
+	background-color: #FFFFFF;   
+	height: 400rpx;  120rpx 
+  border: 1rpx #000 solid;
+	*/
+	height: 800rpx;
+	top: -765rpx; 
+	padding: 40rpx 0rpx;
+	font-size: 28rpx;  
+}
+.type-area {
+	margin: 30rpx 0rpx 30rpx 30rpx;
+	flex-flow: row wrap;
+	align-content: space-around;
+}
+.type-tab {
+	padding: 15rpx 10rpx;
+}
+.type-area text {
+	padding: 25rpx;
+	margin: 30rpx 0rpx;
+	border-radius: 10rpx;
+	line-height: 80rpx;
+	background-color: #FFFFFF;
+	color: #737373;  
+	/*
+	border: 1rpx #737373 solid;*/
+}
+
+.bottom-area {
+	position: absolute;
+	bottom: 30rpx;
+}
+
+/*  -------------- 选项卡 4 ------------------ */
+.tab4 {     /*   == quyu */
+	width: 100%;   
+	background-color: #fff;   
+	position: absolute;   
+	z-index: 50;  
+  /*height: 1200rpx;  相差选择栏高度120rpx */
+	top: -285rpx; 
+	font-size: 28rpx;  
+} 
+.tab4 text { 
+ 	display: block;  
+	line-height: 78rpx;  
+	margin-left: 30rpx;
+ 	border-bottom: 1px solid #FFFFFF;
+ }
+
+
+
+/*  -------------- 查询返回列表 ------------------ */
+.page-body {   
+	width: 100%;   
+	position: absolute;   
+	top: 120rpx;   
+	z-index: 20; 
+}
+
+.page-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.item {
+  display: flex;
+  padding: 40rpx 40rpx;
+  border-top: 1rpx solid rgba(0,0,0,0.1);
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+.item .poster {
+  width: 200rpx;
+  height: 200rpx;
+  margin-right: 20rpx;
+}
+.item .meta {
+  flex: 1;
+}
+.item .meta .title,.item .meta .area {
+  display: block;
+}
+.item .meta .title {
+  font-size: 36rpx;
+	margin-bottom: 20rpx;
+}
+.item .meta .area {
+  font-size: 28rpx;
+  color: #BBBBBB;
+}
+.item .meta .square {
+  font-size: 28rpx;
+  color: #BBBBBB;
+}
+.item .price {
+  font-size: 32rpx;
+  margin-top: 20rpx;
+  color: #FF4081;
+}
+
+/*
+.header-tab > view.inactive {
+  border-bottom:1px solid inherit;
+}
+.header-tab > view.active{
+  color: #1FAFFF;
+  border-bottom:1px solid #1FAFFF;
+}
+*/
+
+
+
+
+
+
+
+
+

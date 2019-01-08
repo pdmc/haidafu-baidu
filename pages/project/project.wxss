@@ -1,0 +1,181 @@
+/* pages/project/project.wxss */
+@import "../../static/css/common.wxss";
+.sw {
+  width: 100%;
+  text-align: center;
+}
+.swiper-item{
+  text-align: center;
+  width: 100%;
+  overflow:show;
+}
+.slide-image {
+  width:100%;
+  overflow:show;
+}
+.main-body {
+  padding: 30rpx 30rpx 200rpx 30rpx;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;
+  padding: 20rpx 50rpx;
+  height: 1000rpx;*/
+}
+.title {
+  font-size: 42rpx;
+  color: #101010;
+  margin-bottom: 20rpx;
+}
+.info {
+  font-size: 30rpx;
+  color: #BBBBBB;
+  width: 100%;
+}
+
+.markable {
+  margin: 39rpx 0rpx;
+}
+.price {
+  font-size: 42rpx;
+  color: #FF4081;
+}
+.state {
+  font-size: 30rpx;
+  color: #1FAFFF;
+}
+.content {
+  margin-top: 40rpx;
+  margin-bottom: 14rpx;
+}
+.desc {
+  font-size: 30rpx;
+  color: #BBBBBB;
+  width: 100%;
+}
+.address {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 40rpx 0rpx;
+}
+
+.provider {
+	border-bottom: 1rpx #E5E5E5 solid;
+}
+.spimage {
+	height: 100rpx;
+	width: 100rpx;
+}
+.openicon {
+	height: 40rpx;
+	width: 40rpx;
+	border-top: 4rpx rgba(0,0,0,0.9) solid;
+	border-right: 4rpx rgba(0,0,0,0.9) solid;
+	transform:rotate(45deg);
+}
+
+.layout {
+  padding: 60rpx 0rpx 40rpx 0rpx;
+}
+.layout-swiper {
+	margin-top: 20rpx;
+	width: 100%;
+	height: 400rpx;
+}
+
+.lorooms {
+	font-size: 28rpx;
+	color: #4B4B4B;
+
+}
+.loimage {
+	width:345rpx;
+	height: 230rpx;
+	padding: 10rpx 0rpx;
+}
+.losq {
+	font-size: 28rpx;
+	color: #BBBBBB;
+}
+.loprice {
+	font-size: 36rpx;
+	color: #FF4081;
+	font-family: 方正兰亭黑-标准;
+	padding-top: 10rpx;
+}
+
+.etcc {
+  border-top: 1rpx solid #EEEEEE;
+  border-bottom: 1rpx solid #EEEEEE;
+  padding: 39rpx 0rpx;
+  margin: 0rpx 0rpx;
+}
+.sentence {
+  font-size: 30rpx;
+  color: #737373;
+  margin-left: 45rpx;
+}
+.sentence1 {
+  font-size: 30rpx;
+  color: #737373;
+  margin-left: 75rpx;
+}
+.rent {
+  font-size: 30rpx;
+  color: #FF4081;
+
+}
+.predict {
+  margin-top: 60rpx;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+/*   --------------- 底部固定栏 -----------------   */
+.bottom {
+  background-color: #FFFFFF;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 150rpx;
+}
+.bottomleft {
+	padding: 10rpx;
+}
+.bottomleft image {
+  width: 100rpx;
+  height: 100rpx;
+}
+.btm-btn {
+  padding: 10rpx;
+}
+.btnlbl {
+  color: #4B4B4B;
+  font-size: 28rpx;
+  text-align: center;
+}
+.bottomright {
+	height: 100%;
+	width: 100%;
+}
+.hongbao-nav {
+	height: 100%;
+  width: 55%;
+}
+.share {
+  font-size: 30rpx;
+  height: 100rpx;
+  width: 45%;
+  background-color: #1FAFFF;
+  align-items: stretch;
+}
+.hongbao {
+  font-size: 36rpx;
+  height: 150rpx;
+  line-height: 150rpx;
+	padding: 0rpx 30rpx;
+  background-color: #FFA94D;
+	color: #FFFFFF;
+	text-align: center;
+	font-family: 方正兰亭黑-标准;
+}

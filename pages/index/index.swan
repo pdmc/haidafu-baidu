@@ -1,0 +1,68 @@
+<view class="container">
+  <swiper class="sw"
+    indicator-dots="{{indicatorDots}}"
+    circular="{{circular}}"
+    vertical="{{vertical}}"
+    previousMargin="{{previousMargin}}"
+    nextMargin="{{nextMargin}}"
+  >
+    <block s-for="{{activities}}" >
+      <swiper-item class="swiper-item">
+				<navigator url='../activity/activity?actId={{item.actId}}'>
+        	<image src="{{item.imgurl}}" class="slide-image" mode='widthFix'/>
+				</navigator>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="page-body">
+    <view class="search_section">
+      <image bindtap="bindViewTap" src='{{search_img}}' mode='aspectFit'></image>
+    </view>
+    <view class='select-header'>
+      <image src='../../static/images/ic_lbl_select.png' class='img-select'></image>
+      <text class='select-title'>精选房源</text>
+    </view>
+
+    <view class="select-tab">
+      <block s-for="{{cities}}" s-for-index="bindex"  >
+        <view data-index='{{bindex}}' class="{{_num==bindex?'active':'inactive'}}" bindtap='toggle'>
+          {{item}}
+        </view>
+      </block>
+    </view>
+    <loading hidden="{{!loading}}">加载中...</loading>
+    <block s-for="{{cities}}" s-for-index="cindex" >
+      <view  class="{{_num==cindex?'show':'hidden'}}">
+        <swiper current="0" class="select-swiper" 
+          indicator-dots="{{indicatorDots2}}"
+          circular="false"
+          previousMargin="{{previousMargin2}}"
+          nextMargin="{{nextMargin2}}"
+          bindchange="bindChange1111">
+          <block s-for="{{select_list[cindex]}}" s-for-index="sindex" >
+            <swiper-item class="select-swiper-item">
+							<navigator url='../project/project?pId={{select_list[cindex][sindex].pId}}'>
+								<!--image src="{{select_list[cindex][sindex].picture1}}" class="slide-image" mode='widthFix'/-->
+								<view class='select-swiper-view' style="background-image: url({{select_list[cindex][sindex].picture1}});  background-repeat:no-repeat; background-size:100% 100%">
+									<view class='select-text-high'>
+										<text>{{select_list[cindex][sindex].area__countryId__name}}  {{select_list[cindex][sindex].area__cityId__name}}  {{select_list[cindex][sindex].pName}}
+										</text>
+									</view>
+									<view class='select-text-low flex-inline-between'>
+										<view>
+											<text class='select-text-price'>{{select_list[cindex][sindex].minPrice}}万~{{select_list[cindex][sindex].maxPrice}}万</text>
+											<text class='select-text-sq'>{{select_list[cindex][sindex].minSquare}}平米-{{select_list[cindex][sindex].maxSquare}}平米</text>
+										</view>
+										<view>
+											<text class='select-text-country'>{{select_list[cindex][sindex].area__countryId__name}}</text>
+										</view>
+									</view>
+								</view>
+							</navigator>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </block>
+  </view>
+</view>
