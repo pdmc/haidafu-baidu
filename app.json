@@ -1,0 +1,47 @@
+{
+  "pages":[
+		"pages/index/index",
+		"pages/my/my",
+		"pages/myfavorite/myfavorite",
+		"pages/myreservation/myreservation",
+		"pages/myhongbao/myhongbao",
+		"pages/projectlist/projectlist",
+		"pages/activity/activity",
+		"pages/activityok/activityok",
+		"pages/reserve/reserve",
+		"pages/reserveok/reserveok",
+		"pages/provider/provider",
+		"pages/project/project"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "bhost(拍砖版)",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "backgroundColor": "#fafafa",
+    "borderStyle": "white",
+    "selectedColor": "#1FAFFF",
+    "color": "#4B4B4B",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/ic_menu_home_nor.png",
+        "selectedIconPath": "static/images/ic_menu_home_pressed.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/images/ic_menu_me_nor.png",
+        "selectedIconPath": "static/images/ic_menu_me_pressed.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

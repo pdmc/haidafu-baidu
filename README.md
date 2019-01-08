@@ -1,1 +1,2 @@
-# haidafu-baidu
+# haidafu-applet
+haidafu mini program
