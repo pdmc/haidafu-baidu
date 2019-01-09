@@ -370,12 +370,17 @@ Page({
 			hasUserInfo: true
 		});
 		var userinfo = swan.getStorageSync('userinfo');
-		if (!userinfo) {
+		if (!userinfo){
 			app.globalData.userInfo = e.detail.userInfo;
+			userinfo = e.detail.userInfo;
 			swan.setStorage({
 				key: "userinfo",
 				data: e.detail.userInfo
 			});
+		} else if(userinfo.nickName == '百度网友' && e.detail.userInfo.nickName != '百度网友'){
+			userinfo.nickName = e.detail.userInfo.nickName;
+			userinfo.gender = e.detail.userInfo.gender;
+			userinfo.avatarUrl = e.detail.userInfo.avatarUrl;
 		}
 		if (userinfo && userinfo.userId && userinfo.isLogin) {	// 数据不一致
 			this.setData({

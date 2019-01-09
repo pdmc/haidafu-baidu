@@ -50,7 +50,7 @@ Page({
 				userInfo: userinfo
 			});
 		}
-		
+
 		const url = app.globalData.main_url + '/activity/getbyid?actId=' + options.actId;
 		// 请求数据
 		swan.request({
@@ -70,7 +70,7 @@ Page({
 						activity: activity,
 						loading: false // 隐藏等待框
 					});
-					
+
 					/*
 					*	检查storage缓存，判断当前用户是否已预约。
 					*/
@@ -98,8 +98,8 @@ Page({
 									if (time.length > 16 && time.indexOf('T') > 0) {
 										time = time.substr(0, 10) + ' ' + time.substr(11, 5);
 									}
-									var activity = { "actid": res.data.data[0].pkactivity__actId, "name": res.data.data[0].pkactivity__subject, "address": res.data.data[0].pkactivity__address, "time": time, "image": res.data.data[0].pkactivity__imgurl};
-									var myactivity = { "maid": res.data.data[0].maId, "userid": _this.data.userInfo.userId, "actid": res.data.data[0].pkactivity__actId, "myactivity": res.data.data[0], "activity": activity};
+									var activity = { "actid": res.data.data[0].pkactivity__actId, "name": res.data.data[0].pkactivity__subject, "address": res.data.data[0].pkactivity__address, "time": time, "image": res.data.data[0].pkactivity__imgurl };
+									var myactivity = { "maid": res.data.data[0].maId, "userid": _this.data.userInfo.userId, "actid": res.data.data[0].pkactivity__actId, "myactivity": res.data.data[0], "activity": activity };
 									myactivities.unshift(myactivity);
 									swan.setStorage({
 										key: key,
@@ -118,7 +118,7 @@ Page({
 				console.log('wx request failed !!!')
 			}
 		});
-	
+
 	},
 
 	nameInput: function (e) {
@@ -223,7 +223,7 @@ Page({
 						verifytext: '发送验证码',
 						currentTime: 61
 					})
-    		}
+				}
 			}, 1000);
 
 		}
@@ -244,12 +244,12 @@ Page({
 			success: function (res) {
 				//console.log(res.data);
 				if (res.statusCode == 200) {
-					if(res.data.pass){
+					if (res.data.pass) {
 						_this.setData({
 							verifyError: false,
 							verify: verify
 						});
-					}else{
+					} else {
 						_this.setData({
 							verifyError: true
 						});
@@ -313,8 +313,8 @@ Page({
 							time = time.substr(0, 10) + ' ' + time.substr(11, 5);
 						}
 						var activity = { "actid": _this.data.activity.actId, "name": _this.data.activity.subject, "address": _this.data.activity.address, "time": time, "image": _this.data.activity.imgurl };
-						var myact = { "maid": res.data.maId, "actid": _this.data.activity.actId, "userid": userinfo.userId, "status": 0};
-						var myactivity = { "maid": res.data.maId, "userid": userinfo.userId, "actid": _this.data.activity.actId, "activity": activity, "myactivity": myact};
+						var myact = { "maid": res.data.maId, "actid": _this.data.activity.actId, "userid": userinfo.userId, "status": 0 };
+						var myactivity = { "maid": res.data.maId, "userid": userinfo.userId, "actid": _this.data.activity.actId, "activity": activity, "myactivity": myact };
 						myactivities.unshift(myactivity);
 						swan.setStorage({
 							key: key,
@@ -331,15 +331,78 @@ Page({
 	},
 
 	getUserInfo: function (e) {
+		/*swan.authorize({
+			scope: 'scope.userInfo',
+			success: res => {
+				swan.showToast({
+					title: '授权成功'
+				});
+				console.log(res)
+				swan.getUserInfo({
+					success: function (res) {
+						console.log(res)
+						let userInfo = res.userInfo
+						swan.setStorageSync('user', userInfo);
+						swan.reLaunch({
+							//此路径为相对路径；如需写为绝对地址，则可写为‘/example/xxx?key=valu’。
+							url: '../index/index'
+						});
+					}
+				});
+			},
+			fail: err => {
+				swan.showToast({
+					title: '授权失败'
+				});
+				swan.showModal({
+					title: '警告',
+					content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
+					showCancel: false,
+					confirmText: '返回授权',
+					success: function (res) {
+						console.log(res)
+						if (res.confirm) {
+							console.log('用户点击了“返回授权”')
+							swan.getSetting({
+								success: function (res) {
+									console.log(res)
+									console.log(res.authSetting['scope.userInfo']);
+									if (res.authSetting['scope.userInfo']) {
+										_this.getUserInfo();
+									}
+								}
+							});
+						}
+					}
+				})
+				// swan.openSetting({
+				//     success: function (res) {
+				//         console.log(res)
+				//         console.log(res.authSetting['scope.userInfo']);
+				//         // console.log(res.authSetting['scope.userLocation']);
+				//         if(res.authSetting['scope.userInfo']){
+				//             _this.getUserInfo();
+				//         }
+				//     }
+				// });
+
+
+			}
+		});*/
 		var _this = this;
 		console.log(e);
 		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo){
 			app.globalData.userInfo = e.detail.userInfo;
+			userinfo = e.detail.userInfo;
 			swan.setStorage({
 				key: "userinfo",
 				data: e.detail.userInfo
 			});
+		} else if(userinfo.nickName == '百度网友' && e.detail.userInfo.nickName != '百度网友'){
+			userinfo.nickName = e.detail.userInfo.nickName;
+			userinfo.gender = e.detail.userInfo.gender;
+			userinfo.avatarUrl = e.detail.userInfo.avatarUrl;
 		}
 		if (userinfo && userinfo.userId && userinfo.isLogin) {	// 数据不一致
 			this.setData({
@@ -352,7 +415,8 @@ Page({
 					userInfo: userinfo
 				});
 			};
-			app.loginUser(logcb);
+			//app.loginUser(logcb);
+			app.checkUserLogin(logcb);
 		}
 	},
 
