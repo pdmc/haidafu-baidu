@@ -25,16 +25,18 @@ App({
 						swan.getUserInfo({
 							success: res => {
 								// 可以将 res 发送给后台解码出 unionId
-								this.globalData.userInfo = res.userInfo;
-								swan.setStorage({
-									key: 'userinfo',
-									data: res.userInfo,
-								});
+								if(res.userInfo.nickName != '百度网友'){	// 暂不记录mock用户
+									this.globalData.userInfo = res.userInfo;
+									swan.setStorage({
+										key: 'userinfo',
+										data: res.userInfo,
+									});
 
-								// 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-								// 所以此处加入 callback 以防止这种情况
-								if (this.userInfoReadyCallback) {
-									this.userInfoReadyCallback(res)
+									// 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+									// 所以此处加入 callback 以防止这种情况
+									if (this.userInfoReadyCallback) {
+										this.userInfoReadyCallback(res)
+									}
 								}
 							}
 						})
@@ -55,6 +57,7 @@ App({
 			// 请求数据
 			//const url = this.globalData.main_url + "/users/login?name=" + app.globalData.userInfo.nickName + "&code=" + app.globalData.userCode;
 			const url = this.globalData.main_url + "/users/login";
+			userinfo.channel = 'baidu';
 			swan.request({
 				url: url,
 				method: "POST",
@@ -127,16 +130,18 @@ App({
 			// 在没有 open-type=getUserInfo 版本的兼容处理
 			swan.getUserInfo({
 				success: res => {
-					_this.globalData.userInfo = res.userInfo;
-					swan.setStorage({
-						key: "userinfo",
-						data: res.userInfo
-					});
-					/*this.setData({
-						userInfo: res.userInfo,
-						hasUserInfo: true
-					});*/
-					return _this.loginUser(callback);
+					if(res.userInfo.nickName == '百度网友'){
+						_this.globalData.userInfo = res.userInfo;
+						swan.setStorage({
+							key: "userinfo",
+							data: res.userInfo
+						});
+						/*this.setData({
+							userInfo: res.userInfo,
+							hasUserInfo: true
+						});*/
+						return _this.loginUser(callback);
+					}
 				}
 			})
 		}
