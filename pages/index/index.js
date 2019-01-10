@@ -7,7 +7,7 @@ Page({
       'http://image.pk4yo.com/tooopen_sy_175833047715.jpg'
     ],
 		activities: [],
-    search_img: '../../static/images/search_button.png',
+    search_img: '/static/images/search_button.png',
     background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
     indicatorDots: true,
     vertical: false,
