@@ -6,15 +6,15 @@ App({
 		//swan.setStorageSync('logs', logs)
 
 		// 登录
-		swan.login({
+		/*swan.login({
 			success: res => {
 				console.log("------------- swan.login -------------");
 				console.log(res);
 				this.globalData.userCode = res.code;
 				// 发送 res.code 到后台换取 openId, sessionKey, unionId
 			}
-		});
-		this.test();
+		});*/
+		//this.test();
 		// 获取用户信息
 		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo) {	
