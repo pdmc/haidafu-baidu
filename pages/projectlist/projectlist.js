@@ -127,7 +127,7 @@ Page({
 						cities: cities,
 						cityIds: cityIds,*/
 						loading: false // 关闭等待框
-					});
+					})
 				}
 			}
 		});
@@ -438,7 +438,16 @@ Page({
 		else if (val[1] == 0 && val[1] != this.data.lastval[1]) change = -2;
 		else if (val[2] > 0 && val[2] != this.data.lastval[2]) change = 2;
 		console.log(val);
-		if (change == 0) {	// 选择国家
+		// 先添加国省市，再根据情况删除
+		postcols = this.data.postCols;
+		if (postcols.indexOf("countryId") < 0) postcols.push("countryId");
+		if (postcols.indexOf("provinceId") < 0) postcols.push("provinceId");
+		if (postcols.indexOf("cityId") < 0) postcols.push("cityId");
+		this.setData({
+			postCols: postcols
+		});
+		// 根据情况
+		if(change == 0){	// 选择国家
 			cities = [];
 			cityIds = [];
 			idx = this.data.countryIds[val[0] - 1];
@@ -450,8 +459,7 @@ Page({
 			}
 			post = this.data.post;
 			post.countryId = this.data.countryIds[val[0] - 1];
-			post.provinceId = 0;
-			post.cityId = 0;
+			this.postRemove(["provinceId","cityId"]);
 			this.setData({
 				lastval: val,
 				provinces: provinces,
@@ -470,7 +478,7 @@ Page({
 			}
 			post = this.data.post;
 			post.provinceId = this.data.provinceIds[val[1] - 1];
-			post.cityId = 0;
+			this.postRemove(["cityId"]);
 			this.setData({
 				lastval: val,
 				cities: cities,
@@ -485,25 +493,20 @@ Page({
 				post: post
 			});
 		} else if (change == -1) {
-			post = this.data.post;
-			post.provinceId = 0;
-			post.cityId = 0;
+			this.postRemove(["countryId", "provinceId", "cityId"]);
 			this.setData({
 				lastval: val,
 				provinces: [],
 				provinceIds: [],
 				cities: [],
-				cityIds: [],
-				post: post
+				cityIds: []
 			});
 		} else if (change == -2) {
-			post = this.data.post;
-			post.cityId = 0;
+			this.postRemove(["cityId"]);
 			this.setData({
 				lastval: val,
 				cities: [],
-				cityIds: [],
-				post: post
+				cityIds: []
 			});
 		} else {
 			post = this.data.post;
@@ -515,14 +518,6 @@ Page({
 				post: post
 			});
 		}
-		postcols = this.data.postCols;
-		if (postcols.indexOf("countryId") < 0) postcols.push("countryId");
-		if (postcols.indexOf("provinceId") < 0) postcols.push("provinceId");
-		if (postcols.indexOf("cityId") < 0) postcols.push("cityId");
-		this.setData({
-			postCols: postcols
-		});
-
 	},
 
 
