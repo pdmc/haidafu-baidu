@@ -151,7 +151,7 @@ App({
 		console.log('hhhhhhhhhhhhhhhh')
 	},
 	globalData: {
-		main_url: 'https://zhuabo.pk4yo.com:8083',
+		main_url: 'https://bhost.pk4yo.com',
 		hasUserInfo: false,
 		isLogin: false,
 		canIUse: swan.canIUse('button.open-type.getUserInfo'),
