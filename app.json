@@ -16,7 +16,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "海大富(内测版)",
+    "navigationBarTitleText": "可优找房(内测版)",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
