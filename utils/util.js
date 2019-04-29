@@ -6,13 +6,61 @@ const formatTime = date => {
   const minute = date.getMinutes()
   const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 };
 
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 };
+
+function randomNum(Min, Max) {
+	var Range = Max - Min;
+	var Rand = Math.random();
+	var num = Min + Math.round(Rand * Range);
+	return num;
+}
+
+var requestTask = '';
+function makeRequest(thisObj, reqUrl, data, successCallback, method) {
+	var self = thisObj;
+	self.setData({
+		loading: true
+	})
+	swan.showLoading({ "title": "数据加载中..." });
+	if (typeof requestTask == 'object') {
+		requestTask.abort() // 取消上次请求任务
+	}
+	requestTask = swan.request({
+		url: reqUrl,
+		method: method || 'POST',
+		data: data || {},
+
+		success: function (result) {
+			swan.hideLoading();
+			self.setData({
+				loading: false
+			})
+			if (result.statusCode == 200) {
+				successCallback && successCallback(result.data);
+			} else {
+				swan.showToast({
+					title: '网络请求失败！',
+					icon: 'none',
+					duration: 2000
+				})
+			}
+		},
+
+		fail: function ({ errMsg }) {
+			console.log('request fail', errMsg)
+			swan.hideLoading();
+			self.setData({
+				loading: false
+			})
+		}
+	})
+}
 
 const array_find_obj = function (array, key, value) {
 	var index = -1;
@@ -79,8 +127,10 @@ if  (!Array.indexOf)  {
 
 module.exports = {
   formatTime: formatTime,
-	array_find_obj: array_find_obj,
-	myStorageFind: myStorageFind,
-	myStorageDel: myStorageDel,
-	checkMobile: checkMobile
+	randomNum: randomNum,
+	makeRequest: makeRequest,
+  array_find_obj: array_find_obj,
+  myStorageFind: myStorageFind,
+  myStorageDel: myStorageDel,
+  checkMobile: checkMobile
 }
