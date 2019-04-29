@@ -6,7 +6,7 @@ module.exports = class Mcaptcha {
     this.refresh(this.options.code);
   }
   init() {
-    this.ctx = wx.createCanvasContext(this.options.el);
+    this.ctx = swan.createCanvasContext(this.options.el);
     this.ctx.setTextBaseline("middle");
     this.ctx.setFillStyle(this.randomColor(180, 240));
     this.ctx.fillRect(0, 0, this.options.width, this.options.height);
