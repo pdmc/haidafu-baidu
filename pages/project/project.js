@@ -329,11 +329,11 @@ Page({
 		var phone = e.currentTarget.dataset.phone;
 		//console.log(e);
 		if (phone != undefined && phone) {
-			wx.makePhoneCall({
+			swan.makePhoneCall({
 				phoneNumber: phone,
 			})
 		}else{
-			wx.showToast({
+			swan.showToast({
 				title: '暂无联系电话',
 				icon: 'none',
 				duration: 1000,

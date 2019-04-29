@@ -8,7 +8,7 @@ Page({
 
 	onLoad: function () {
 		let that = this
-		wx.getStorage({
+		swan.getStorage({
 			key: 'searchResultData',
 			success: function (res) {
 				that.setData({ list: res.data })
@@ -19,7 +19,7 @@ Page({
 	goDetail: function (e) {
 		var self = this,
 			data = e.currentTarget.dataset;
-		wx.navigateTo({ url: '../finddetail/finddetail?id=' + data.id })
+		swan.navigateTo({ url: '../finddetail/finddetail?id=' + data.id })
 	}
 
 })

@@ -22,7 +22,7 @@ Page({
 		const url = app.globalData.main_url + '/question/getbycond?state=1';
 		// + options.type;
 		// 请求数据
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -51,7 +51,7 @@ Page({
 		if (!this.data.loaded) {
 			// 获取question的answer列表
 			const url2 = app.globalData.main_url + '/question/getbycond?state=1';
-			wx.request({
+			swan.request({
 				url: url2,
 				data: {},
 				header: {
@@ -82,7 +82,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title 
 		})
 	}

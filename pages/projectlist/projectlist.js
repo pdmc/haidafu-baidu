@@ -290,7 +290,7 @@ Page({
 		/*_this.setData({
 			loading: true // 打开等待框
 		})*/
-		wx.request({
+		swan.request({
 			url: url,
 			method: "POST",
 			data: newpost,

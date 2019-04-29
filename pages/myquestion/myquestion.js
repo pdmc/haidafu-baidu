@@ -20,7 +20,7 @@ Page({
 	onLoad: function (options) {
 		var _this = this;
 		const url = app.globalData.main_url + '/users/getbyid?userId=' + options.userId;
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -42,7 +42,7 @@ Page({
 		});
 
 		const url2 = app.globalData.main_url + '/question/getbycond?state=1&userId=' + options.userId;
-		wx.request({
+		swan.request({
 			url: url2,
 			data: {},
 			header: {

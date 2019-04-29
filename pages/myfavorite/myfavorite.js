@@ -83,7 +83,7 @@ Page({
 
 		const url2 = app.globalData.main_url + '/favoritequestions/getbycond?userId=' + userinfo.userId;
 		// 请求数据
-		wx.request({
+		swan.request({
 			url: url2,
 			data: {},
 			header: {

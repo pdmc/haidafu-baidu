@@ -27,7 +27,7 @@ Page({
 	},
 
 	onReady: function () {
-		this.audioCtx = wx.createAudioContext('audio')
+		this.audioCtx = swan.createAudioContext('audio')
 		//this.audioCtx.play()
 	},
 

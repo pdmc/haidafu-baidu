@@ -24,10 +24,10 @@ Page({
 	onLoad: function (options) {
 		const _this = this;
 
-		var userinfo = wx.getStorageSync('userinfo');
+		var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var uinfo = wx.getStorageSync('userinfo');
+				var uinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: uinfo
 				});
@@ -41,7 +41,7 @@ Page({
 
 		// 获取question详细信息
 		const url = app.globalData.main_url + '/question/getbyid?qId=' + options.qId;
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -60,7 +60,7 @@ Page({
 					
 					// 获取question的answer列表
 					const url2 = app.globalData.main_url + '/answer/getbycond?state=1&qId=' + options.qId;
-					wx.request({
+					swan.request({
 						url: url2,
 						data: {},
 						header: {
@@ -83,7 +83,7 @@ Page({
 
 					const key = 'myfavquestions';
 					var qid = res.data.data[0].qId;
-					var favs = wx.getStorageSync(key) || [];
+					var favs = swan.getStorageSync(key) || [];
 					var fi = util.array_find_obj(favs, "qid", qid);
 					if (fi >= 0) {
 						_this.setData({
@@ -94,7 +94,7 @@ Page({
 						const url3 = app.globalData.main_url + '/favoritequestions/getbycond?articleId=' + qid + '&userId=' + _this.data.userInfo.userId;
 						// 请求数据
 						//var _res = res;
-						wx.request({
+						swan.request({
 							url: url3,
 							data: {},
 							header: {
@@ -105,7 +105,7 @@ Page({
 									var favorite = { "fid": res.data.data[0].fId, "qid": qid, "userid": _this.data.userInfo.userId };
 									var question = { "qid": qid, "title": _this.data.question.title, "content": _this.data.question.content, "userId": _this.data.question.userId, "createTime": _this.data.question.createTime, "ansNum": _this.data.question.ansNum };
 									favs.unshift({ "fid": res.data.data[0].fId, "qid": qid, "favorite": favorite, "question": question }); //res.data.data[0]);
-									wx.setStorage({
+									swan.setStorage({
 										key: key,
 										data: favs,
 									});
@@ -133,7 +133,7 @@ Page({
 		var added = this.data.addfav;
 
 		if (this.data.userInfo.userId == undefined || this.data.userInfo.userId <= 0) {
-			wx.switchTab({
+			swan.switchTab({
 				url: '/pages/my/my',
 			});
 			return;
@@ -142,13 +142,13 @@ Page({
 		if (!added) {
 			const key = 'myfavquestions';
 			var qid = this.data.question.qId;
-			var favs = wx.getStorageSync(key) || [];
+			var favs = swan.getStorageSync(key) || [];
 			var fi = util.array_find_obj(favs, "qid", qid);
 			if (fi == -1) {
 				var favorite = { "fId": 0, "articleId": qid, "userId": this.data.userInfo.userId };
 				var question = { "qid": qid, "title": this.data.question.title, "content": this.data.question.content, "userId": this.data.question.userId, "createTime": this.data.question.createTime, "ansNum": this.data.question.ansNum };
 				favs.unshift({ "qid": qid, "fid": 0, "favorite": favorite, "question": question });
-				wx.setStorage({
+				swan.setStorage({
 					key: key,
 					data: favs
 				});
@@ -159,7 +159,7 @@ Page({
 			});
 		} else {
 			const key = 'myfavquestions';
-			var favs = wx.getStorageSync(key);
+			var favs = swan.getStorageSync(key);
 			if (favs.length == 0) {
 				console.log("Error: favorite storage incorrect!!!");
 				return;
@@ -168,7 +168,7 @@ Page({
 			var fi = util.array_find_obj(favs, "qid", qid);
 			console.log(fi);
 			favs.splice(fi, 1);
-			wx.setStorage({
+			swan.setStorage({
 				key: key,
 				data: favs
 			});
@@ -183,7 +183,7 @@ Page({
 		var len = this.data.answers.length;
 		for(var i=0; i<len; i++){
 			if (this.data.answers[i].userId == this.data.userInfo.userId){
-				wx.showToast({
+				swan.showToast({
 					title: '您已回答过此问题！',
 					icon: 'none',
 					duration: 1000,
@@ -192,7 +192,7 @@ Page({
 				return;
 			}
 		}
-		wx.navigateTo({
+		swan.navigateTo({
 			url: "/pages/answer/answer?qId=" + this.data.question.qId + "&title=" + this.data.question.title + "&content=" + this.data.question.content + "&userId=" + this.data.question.userId + "&createTime=" + this.data.question.createTime + "&ansNum=" + this.data.question.ansNum
 		})
 	},
@@ -208,7 +208,7 @@ Page({
 			const url = app.globalData.main_url + '/favoritequestions/addifnotexist?articleId=' + _this.data.question.qId + '&userId=' + _this.data.userInfo.userId;
 			// 请求数据
 			//var _res = res;
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -219,13 +219,13 @@ Page({
 						console.log("addifnotexist");
 						const key = 'myfavquestions';
 						var qid = _this.data.question.qId;
-						var favs = wx.getStorageSync(key) || [];
+						var favs = swan.getStorageSync(key) || [];
 						var fi = util.array_find_obj(favs, "qid", qid);
 						if (fi == -1) {
 							var favorite = { "fId": res.data.fId, "qId": qid, "userId": _this.data.userInfo.userId };
 							var question = { "qid": qid, "title": _this.data.question.title, "content": _this.data.question.content, "userId": _this.data.question.userId, "createTime": _this.data.question.createTime, "ansNum": _this.data.question.ansNum };
 							favs.unshift({ "qid": qid, "fid": res.data.fId, "favorite": favorite, "question": question });
-							wx.setStorage({
+							swan.setStorage({
 								key: key,
 								data: favs
 							});
@@ -233,7 +233,7 @@ Page({
 							console.log(favs[fi])
 							favs[fi].fid = res.data.fId
 							favs[fi].favorite.fid = res.data.fId
-							wx.setStorage({
+							swan.setStorage({
 								key: key,
 								data: favs
 							});
@@ -243,13 +243,13 @@ Page({
 			});
 		} else {
 			const key = 'myfavquestions';
-			var favs = wx.getStorageSync(key);
+			var favs = swan.getStorageSync(key);
 			var qid = this.data.question.qId;
 			var fi = util.array_find_obj(favs, "qid", qid);	// not pid and fid???
 			if (fi >= 0 && favs.length > 0) {
 				console.log(fi);
 				favs.splice(fi, 1);
-				wx.setStorage({
+				swan.setStorage({
 					key: key,
 					data: favs
 				});
@@ -258,7 +258,7 @@ Page({
 			const url = app.globalData.main_url + '/favoritequestions/delete?fId=' + _this.data.favorite.fId;
 			// 请求数据
 			//var _res = res;
-			wx.request({
+			swan.request({
 				url: url,
 				data: {},
 				header: {
@@ -287,7 +287,7 @@ Page({
 		this.syncFav();
 	},
 	goHome: function () {
-		wx.switchTab({
+		swan.switchTab({
 			url: "../index/index",
 			fail: function (e) {
 				console.log(e);
@@ -300,7 +300,7 @@ Page({
 		if (!this.data.loaded) {
 			// 获取question的answer列表
 			const url2 = app.globalData.main_url + '/answer/getbycond?state=1&qId=' + this.data.question.qId;
-			wx.request({
+			swan.request({
 				url: url2,
 				data: {},
 				header: {
@@ -327,7 +327,7 @@ Page({
  * 生命周期函数--监听页面初次渲染完成
  */
 	onReady: function () {
-		wx.setNavigationBarTitle({
+		swan.setNavigationBarTitle({
 			title: this.data.title 
 		})
 	}

@@ -46,6 +46,9 @@ if [ ! -f "app.js" ];then
 fi
 
 #mv app.wxss app.css
+echo "Change project.config.json: miniprogram => smartprogram "
+sed -i 's/miniprogram/smartprogram/g' $item
+echo Move project.config.json to project.swan.json
 mv project.config.json project.swan.json
 
 processDir .

@@ -17,7 +17,7 @@ Page({
 		//isLogin: false,
 		userInfo: {},
 		hasUserInfo: false,
-		canIUse: wx.canIUse('button.open-type.getUserInfo')
+		canIUse: swan.canIUse('button.open-type.getUserInfo')
 	},
 
 	/**
@@ -27,10 +27,10 @@ Page({
 		const _this = this;
 		//console.log(options);
 
-		/*var userinfo = wx.getStorageSync('userinfo');
+		/*var userinfo = swan.getStorageSync('userinfo');
 		if (!userinfo || userinfo.isLogin == undefined || !userinfo.isLogin) {
 			var logcb = function () {
-				var userinfo = wx.getStorageSync('userinfo');
+				var userinfo = swan.getStorageSync('userinfo');
 				_this.setData({
 					userInfo: userinfo,
 					hasUserInfo: true
@@ -45,7 +45,7 @@ Page({
 		}*/
 
 		const key = 'mysearches';
-		var keys = wx.getStorageSync(key) || [];
+		var keys = swan.getStorageSync(key) || [];
 		this.setData({
 			keys: keys
 		});
@@ -56,7 +56,7 @@ Page({
 				addfav: true
 			});
 		}
-		wx.setStorage({
+		swan.setStorage({
 			key: '',
 			data: '',
 		})
@@ -82,7 +82,7 @@ Page({
 		const url = app.globalData.main_url + '/question/getbycond?title=' + key;
 		// + options.type;
 		// 请求数据
-		wx.request({
+		swan.request({
 			url: url,
 			data: {},
 			header: {
@@ -99,7 +99,7 @@ Page({
 					const url2 = app.globalData.main_url + '/question/getbycond?content=' + key;
 					// + options.type;
 					// 请求数据
-					wx.request({
+					swan.request({
 						url: url2,
 						data: {},
 						header: {
@@ -147,13 +147,13 @@ Page({
 		this.search(this.data.key);
 
 		const key = 'mysearches';
-		var keys = wx.getStorageSync(key) || [];
+		var keys = swan.getStorageSync(key) || [];
 		var val = this.data.key; //res.data.data[0].val;
 	  var fi = util.array_find_obj(keys, "val", val);
 		if (fi < 0) {
 			if (keys.length >= HISTNUM) keys.pop();
 			keys.unshift({"val": val});
-			wx.setStorage({
+			swan.setStorage({
 				key: key,
 				data: keys,
 			});
@@ -172,7 +172,7 @@ Page({
 	
 	histClear: function (e) {
 		const key = 'mysearches';
-		wx.setStorage({
+		swan.setStorage({
 			key: key,
 			data: [],
 		});

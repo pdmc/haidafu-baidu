@@ -6,7 +6,7 @@
         <view class='ico-title'>找到{{ list.length }}种相似文物</view>
         <view class='ico-down'>></view>
       </view>
-      <view class='row' wx:for="{{ list }}" wx:key="{{ item }}" bindtap="goDetail" data-id="{{ item.artwork_id }}">
+      <view class='row' s-for="{{ list }}" wx:key="{{ item }}" bindtap="goDetail" data-id="{{ item.artwork_id }}">
         <view class="weui-flex">
           <view class="weui-flex__item">
             <view class="placeholder img-box">
