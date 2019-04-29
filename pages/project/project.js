@@ -82,7 +82,7 @@ Page({
 						});
 					} else if (_this.data.userId && _this.data.userId > 0) {	// 存在即修正，虚无非真空
 						// 拼接请求url
-						const url = app.globalData.main_url + '/favorites/getbycond?pId=' + _this.data.project.pId + '&userId=' + _this.data.userId;
+						const url = app.globalData.main_url + '/favorites/getbycond?pId=' + pid + '&userId=' + _this.data.userId;
 						// 请求数据
 						//var _res = res;
 						swan.request({
@@ -93,7 +93,7 @@ Page({
 							},
 							success: function (res) {
 								if (res.statusCode == 200 && res.data.data.length > 0) {
-									var favorite = { "fid": res.data.data[0].fId, "pid": res.data.data[0].pkproject__pId, "userid": _this.data.userInfo.userId };
+									var favorite = { "fid": res.data.data[0].fId, "pid": res.data.data[0].pkproject__pId, "userid": _this.data.userId };
 									var project = { "pid": res.data.data[0].pkproject__pId, "name": res.data.data[0].pkproject__pName, "lowsq": res.data.data[0].pkproject__minSquare, "highsq": res.data.data[0].pkproject__maxSquare, "lowprice": res.data.data[0].pkproject__minPrice, "highprice": res.data.data[0].pkproject__maxPrice, "country": res.data.data[0].countryId__area__name, "image": res.data.data[0].pkproject__thumbnail };
 									favs.unshift({ "fid": res.data.data[0].fId, "pid": pid, "favorite": favorite, "project": project }); //res.data.data[0]);
 									swan.setStorage({
@@ -156,7 +156,7 @@ Page({
 			var fi = util.array_find_obj(favs, "pid", pid);
 			if (fi == -1) {
 				var favorite = { "fId": 0, "pId": pid, "userId": this.data.userId };
-				var project = { "pid": pid, "name": this.data.project.pkproject__pName, "lowsq": this.data.project.pkproject__minSquare, "highsq": this.data.project.pkproject__maxSquare, "lowprice": this.data.project.pkproject__minPrice, "highprice": this.data.project.pkproject__maxPrice, "country": this.data.project.countryId__area__name, "image": this.data.project.pkproject__thumbnail };
+				var project = { "pid": pid, "name": this.data.project.pName, "lowsq": this.data.project.minSquare, "highsq": this.data.project.maxSquare, "lowprice": this.data.project.minPrice, "highprice": this.data.project.maxPrice, "country": this.data.project.area__countryId__name, "image": this.data.project.thumbnail };
 				favs.unshift({ "pid": pid, "fid": 0, "favorite": favorite, "project": project });
 				swan.setStorage({
 					key: key,
@@ -238,15 +238,23 @@ Page({
 						var pid = _this.data.project.pId;
 						var favs = swan.getStorageSync(key) || [];
 						var fi = util.array_find_obj(favs, "pid", pid);
-						if (fi == -1 || favs[fi].fid == 0) {
+						if (fi == -1) {
 							var favorite = { "fId": res.data.fId, "pId": pid, "userId": _this.data.userId };
-							var project = { "pid": pid, "name": _this.data.project.pkproject__pName, "lowsq": _this.data.project.pkproject__minSquare, "highsq": _this.data.project.pkproject__maxSquare, "lowprice": _this.data.project.pkproject__minPrice, "highprice": _this.data.project.pkproject__maxPrice, "country": _this.data.project.countryId__area__name, "image": _this.data.project.pkproject__thumbnail };
+							var project = { "pid": pid, "name": _this.data.project.pName, "lowsq": _this.data.project.minSquare, "highsq": _this.data.project.maxSquare, "lowprice": _this.data.project.minPrice, "highprice": _this.data.project.maxPrice, "country": _this.data.project.area__countryId__name, "image": _this.data.project.thumbnail };
 							favs.unshift({ "pid": pid, "fid": res.data.fId, "favorite": favorite, "project": project });
 							swan.setStorage({
 								key: key,
 								data: favs
 							});
-						} 
+						}else if (favs[fi].fid == 0) {
+							console.log(favs[fi])
+							favs[fi].fid = res.data.fId
+							favs[fi].favorite.fid = res.data.fId
+							swan.setStorage({
+								key: key,
+								data: favs
+							});
+						}  
 					}
 				}
 			});
@@ -289,7 +297,12 @@ Page({
 	onHide: function () {
 		this.syncFav();
 	},
-
+	/**
+	 * 生命周期函数--监听页面卸载
+	 */
+	onUnload: function () {
+		this.syncFav();
+	},
 	goHome: function () {
 		swan.switchTab({
 			url: "../index/index",
