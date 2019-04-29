@@ -1,5 +1,5 @@
-/* pages/myquestion/myquestion.wxss */
-@import "../../static/css/common.wxss";
+/* pages/myquestion/myquestion.css */
+@import "../../static/css/common.css";
 .page {
   width: 100%;
 	height: 100%;

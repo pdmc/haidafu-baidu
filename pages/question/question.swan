@@ -8,7 +8,7 @@
 			<text class='content tinyLabel detailColor'>{{question.content?question.content:" "}}</text>
 		</view>
 		<view class='flex-inline-left'>
-			<block wx:for="{{question.labels}}" wx:key="*this">
+			<block s-for="{{question.labels}}" >
 				<text class='labelsq miuLabel'>{{item}}</text>
 			</block>
 		</view>
@@ -42,7 +42,7 @@
 		</view>
 	</view>
 	<view class="aArea">
-		<block wx:for="{{answers}}" wx:for-index="index" wx:key="*this">
+		<block s-for="{{answers}}" s-for-index="index" >
 			<view class="aitem flex-vertical">
 				<view class='flex-inline-left'>
 					<image src="{{item.pkuser__avatarUrl?item.pkuser__avatarUrl:'../../static/images/avatar-default.jpg'}}" mode='aspectFill'></image>

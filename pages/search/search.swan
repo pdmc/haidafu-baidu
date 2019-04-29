@@ -6,7 +6,7 @@
 		<text class="searchBtn middleLabel" bindtap="submit">搜索</text>
 	</view>
 	<view class="histArea" class="{{state==0?'show':'hidden'}}">
-		<block wx:for="{{keys}}" wx:for-index="index" wx:key="*this">
+		<block s-for="{{keys}}" s-for-index="index" >
 			<view data-index="{{index}}" data-item="{{item.val}}" class="keyItem {{index==0?'firstItem':''}}" bindtap="histSubmit">
 				<text class="smallLabel lightColor">{{item.val}}</text>
 			</view>
@@ -16,7 +16,7 @@
 		</view>
 	</view>
 	<view class="qArea" class="{{state==1?'show':'hidden'}}">
-		<block wx:for="{{questions}}" wx:for-index="index" wx:key="*this">
+		<block s-for="{{questions}}" s-for-index="index" >
 			<navigator url='../question/question?qId={{item.qId}}'>
 			<view class="qitem flex-vertical">
 				<view class='flex-inline-left'>
@@ -27,7 +27,7 @@
 				</view>
 				<view class='lowerBar flex-inline-between'>
 					<view class='flex-inline-left'>
-						<block wx:for="{{item.labels}}" wx:for-item="itemLabel" wx:key="*this">
+						<block s-for="{{item.labels}}" s-for-item="itemLabel" >
 							<text class='labelsq miuLabel'>{{itemLabel}}</text>
 						</block>
 					</view>

@@ -2,7 +2,7 @@
   <!--列表-->
 <view class="container">
 	<view class="select-tab">
-		<block wx:for="{{labels}}" wx:for-index="bindex"  wx:key="*this">
+		<block s-for="{{labels}}" s-for-index="bindex"  >
 			<view data-index='{{bindex}}' class="{{_num==bindex?'active':'inactive'}}" bindtap='toggle'>
 				{{item}}
 			</view>
@@ -31,7 +31,7 @@
     </view>
   </view>
 	<view data-index="1" class="select-page {{_num==1?'show':'hidden'}}">
-		<block wx:for="{{questions}}" wx:for-index="index" wx:key="*this">
+		<block s-for="{{questions}}" s-for-index="index" >
 			<navigator url='../question/question?qId={{item.question__qId}}'>
 			<view class="{{index==0?'firstItem':''}} qitem flex-vertical">
 				<view class='flex-inline-left'>
@@ -42,7 +42,7 @@
 				</view>
 				<view class='lowerBar flex-inline-between'>
 					<view class='flex-inline-left'>
-						<block wx:for="{{item.question__labels}}" wx:for-item="itemLabel" wx:key="*this">
+						<block s-for="{{item.question__labels}}" s-for-item="itemLabel" >
 							<text class='labelsq miuLabel'>{{itemLabel}}</text>
 						</block>
 					</view>

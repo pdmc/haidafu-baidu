@@ -10,7 +10,7 @@
 		<image src="http://image.pk4yo.com/haidafu/ask-image.jpg" mode='aspectFill'></image>
 	</view>
 	<view class="qArea">
-		<block wx:for="{{questions}}" wx:for-index="index" wx:key="*this">
+		<block s-for="{{questions}}" s-for-index="index" >
 			<navigator url='../question/question?qId={{item.qId}}'>
 			<view class="qitem flex-vertical">
 				<view class='flex-inline-left'>
@@ -21,7 +21,7 @@
 				</view>
 				<view class='lowerBar flex-inline-between'>
 					<view class='flex-inline-left'>
-						<block wx:for="{{item.labels}}" wx:for-item="itemLabel" wx:key="*this">
+						<block s-for="{{item.labels}}" s-for-item="itemLabel" >
 							<text class='labelsq miuLabel'>{{itemLabel}}</text>
 						</block>
 					</view>

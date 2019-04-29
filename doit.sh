@@ -10,12 +10,12 @@ function processDir(){
 		if [ -d $item ];then
 			processDir $item
 		fi
-		if [ -w $item ] && [ "${item##*.}"x = "wxss"x ];then
+		if [ -w $item ] && [[ "${item##*.}"x = "wxss"x || "${item##*.}"x = "css"x ]];then
 			echo "Change $item: wxss => css "
 			sed -i 's/wxss/css/g' $item
 			echo Move $item to ${item%.*}.css
 			mv "$item" "${item%.*}.css"
-		elif [ -w $item ] && [ "${item##*.}"x = "wxml"x ];then
+		elif [ -w $item ] && [[ "${item##*.}"x = "wxml"x || "${item##*.}"x = "swan"x ]];then
 			echo "Change $item: wx:for => s-for "
 			sed -i 's/wx:for/s-for/g' $item
 			echo "Change $item: wx:for-index => s-for-index "

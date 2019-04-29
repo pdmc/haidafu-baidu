@@ -34,7 +34,7 @@
       <view class='priceArea flex-inline-between-top markable'>
 				<view class='flex-inline-left-bottom'>
 					<text class='price bigLabel dpink' decode="{{true}}" space="{{true}}">{{project.minPrice?project.minPrice+"万"+(project.maxPrice?"~"+project.maxPrice+"万":""):"价格暂无"}}</text>
-					<text wx:if="{{project.minPrice}}" class='smallLabel dpink' decode="{{true}}" space="{{true}}">RMB</text>
+					<text s-if="{{project.minPrice}}" class='smallLabel dpink' decode="{{true}}" space="{{true}}">RMB</text>
 				</view>
  				<view class='ratioArea flex-vertical'>
 					<text class='middleLabel' decode="{{true}}" space="{{true}}">首付比例：{{project.firstpayRatio?project.firstpayRatio+"%":"暂无"}}</text>
